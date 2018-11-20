@@ -1,0 +1,14 @@
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.csproj.CoreCompileInputs.cache
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.RazorAssemblyInfo.cache
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.RazorAssemblyInfo.cs
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.AssemblyInfoInputs.cache
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.AssemblyInfo.cs
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\bin\Debug\netcoreapp2.1\MSA.deps.json
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\bin\Debug\netcoreapp2.1\MSA.runtimeconfig.json
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\bin\Debug\netcoreapp2.1\MSA.runtimeconfig.dev.json
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\bin\Debug\netcoreapp2.1\MSA.dll
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.RazorTargetAssemblyInfo.cache
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\bin\Debug\netcoreapp2.1\MSA.pdb
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.dll
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.pdb
+C:\Users\timlo\OneDrive\Desktop\MSA-Phase2\Utrack-createdfromPhase2\UtrackV2\MSA\MSA\obj\Debug\netcoreapp2.1\MSA.csprojAssemblyReference.cache
