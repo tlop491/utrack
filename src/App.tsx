@@ -177,7 +177,7 @@ export default class App extends React.Component<{}, IDispState> {
 
   // GET Docs
   private fetchDocsV2(tag: any) {
-    let url = "https://utracker.azurewebsites.net/api/DocumentItem"
+    let url = "https://utrackapii.azurewebsites.net/api/DocumentItem"
     if (tag !== "") {
       url += "/tag?=" + tag
     }
@@ -192,7 +192,7 @@ export default class App extends React.Component<{}, IDispState> {
 
   // GET Docs
   private fetchDocs(tag: any) {
-    let url = "https://utracker.azurewebsites.net/api/DocumentItem"
+    let url = "https://utrackapii.azurewebsites.net/api/DocumentItem"
     if (tag !== "") {
       url += "/tag?=" + tag
     }
@@ -235,7 +235,7 @@ export default class App extends React.Component<{}, IDispState> {
 
 
   private fetchDocsTags() {
-    const url = "https://utracker.azurewebsites.net/api/DocumentItem/tags"
+    const url = "https://utrackapii.azurewebsites.net/api/DocumentItem/tags"
 
     fetch(url, {
       method: 'GET'
