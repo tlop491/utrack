@@ -243,8 +243,8 @@ export class Dashboard extends React.Component<IProps, IState> {
                         </IconButton>
                         < img className={classNames(classes.logoimg)} src="./Logo_inverse.png" />
                         <Typography component="h1" variant="h6" color="inherit" noWrap={true} className={classes.title} >
-                        
-                        U-Track: University Management Software
+
+                            U-Track: University Management Software
                          </Typography>
                         <FBButton />
 
@@ -291,6 +291,39 @@ export class Dashboard extends React.Component<IProps, IState> {
                     <Divider />
                     <List>{secondaryListItems}</List>
                     {/* <FBButton /> */}
+                    <div className="g_chat">
+                        {/* <ChatBot
+                        steps={[
+                            {
+                                id: 'hello-world',
+                                message: 'Hello World!',
+                                end: true,
+                            },
+                        ]}
+                    /> */}
+
+                        {/* <ChatBot
+                            steps={[
+                                {
+                                    id: '1',
+                                    message: 'What is your name?',
+                                    trigger: '2',
+                                },
+                                {
+                                    id: '2',
+                                    user: true,
+                                    trigger: '3',
+                                },
+                                {
+                                    id: '3',
+                                    message: 'Hi, nice to meet you!',
+                                    end: true,
+                                },
+                            ]
+                        }
+
+                        /> */}
+                    </div>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
@@ -300,7 +333,7 @@ export class Dashboard extends React.Component<IProps, IState> {
                         {/* <SimpleLineChart /> */}
                     </Typography>
 
-                    
+
 
 
                     {this.props.items.map(
@@ -314,17 +347,7 @@ export class Dashboard extends React.Component<IProps, IState> {
 
 
 
-                        <div className="g_chat">
-                        {/* <ChatBot
-                        steps={[
-                            {
-                                id: 'hello-world',
-                                message: 'Hello World!',
-                                end: true,
-                            },
-                        ]}
-                    /> */}
-                    </div>
+  
 
 
 

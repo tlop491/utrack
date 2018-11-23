@@ -41,8 +41,9 @@ export default class PdfDisplayFactor extends React.Component<{ url: string, tit
     public render() {
         const { pageNumber, numPages } = this.state;
         const extension = this.props.url;
+        const exe = extension.split('.').pop();
 
-        if (extension === 'pdf') {
+        if (exe === 'pdf') {
             return (
                 <div >
                     <h3>{this.props.title}</h3>
@@ -50,8 +51,8 @@ export default class PdfDisplayFactor extends React.Component<{ url: string, tit
                     <h5>{this.props.date}</h5>
 
                     <Document
-                        //   file={this.props.url}
-                        file="https://msaphase2blob.blob.core.windows.net/images/f4d4690e-d249-424f-b765-54bccb03e1e1.pdf"
+                          file={this.props.url}
+                        // file="https://msaphase2blob.blob.core.windows.net/images/f4d4690e-d249-424f-b765-54bccb03e1e1.pdf"
                         onLoadSuccess={this.onDocumentLoad}
                     >
                         <Page pageNumber={pageNumber} />
