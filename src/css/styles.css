@@ -13,3 +13,10 @@ h1 {
 .headerPersonIcon {
     background-color: #ffff;
 }
+
+.g_chat{
+    .g_chat{
+        position: fixed;
+        top: 100vh;
+      }
+}

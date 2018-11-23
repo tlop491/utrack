@@ -1,8 +1,5 @@
 import { WithStyles } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
-import MenuItem from '@material-ui/core/MenuItem';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
 // import Badge from '@material-ui/core/Badge';
 import { blue, pink } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,15 +7,35 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
+// import ListItem from '@material-ui/core/ListItem';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemText from '@material-ui/core/ListItemText';
+// import ListSubheader from '@material-ui/core/ListSubheader';
 import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import { createStyles, withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+// import AssignmentIcon from '@material-ui/icons/Assignment';
+// import BarChartIcon from '@material-ui/icons/BarChart';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+// import ClassIcon from '@material-ui/icons/Class';
+// import DashboardIcon from '@material-ui/icons/Dashboard';
+// import LayersIcon from '@material-ui/icons/Layers';
 import MenuIcon from '@material-ui/icons/Menu';
+// import PeopleIcon from '@material-ui/icons/People';
+// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import classNames from 'classnames';
 import * as React from 'react';
+// import ChatBot from 'react-simple-chatbot';
+
+import FBButton from './FBButton';
+import PdfDisplayFactory from './PdfDisplayFactory';
+
+
+
 
 
 
@@ -26,7 +43,8 @@ import * as React from 'react';
 // import SimpleLineChart from './SimpleLineChart';
 // import SimpleTable from './SimpleTable';
 import { createMuiTheme, } from '@material-ui/core/styles';
-import { mainListItems, secondaryListItems } from './listItems';
+import { secondaryListItems } from './listItems';
+import ListSection from './ListSection';
 
 
 const drawerWidth = 240;
@@ -92,6 +110,9 @@ const styles = createStyles({
     menuButtonHidden: {
         display: 'none',
     },
+    logoimg: {
+        width: 80,
+    },
     root: {
         display: 'flex',
     },
@@ -117,6 +138,7 @@ const styles = createStyles({
     tableContainer: {
         height: 320,
     },
+
     h5: {
         marginBottom: theme.spacing.unit * 2,
     },
@@ -125,11 +147,21 @@ const styles = createStyles({
 interface IState {
     auth: boolean,
     anchorEl: null,
-
+    authenticated: boolean,
     open: boolean,
 }
 
-interface IProps extends WithStyles<typeof styles> { }
+interface IProps extends WithStyles<typeof styles> {
+    studentSubjectONE: string,
+    studentSubjectTWO: string,
+    studentSubjectTHREE: string,
+    studentSubjectFOUR: string,
+    items: any[],
+    docs: {},
+    docCatergories: any[],
+
+
+}
 
 export class Dashboard extends React.Component<IProps, IState> {
 
@@ -140,14 +172,18 @@ export class Dashboard extends React.Component<IProps, IState> {
             open: true,
             anchorEl: null,
             auth: true,
+            authenticated: false,
         };
 
+        // this.renderDocs = this.renderDocs.bind(this);
+        this.renderSquare = this.renderSquare.bind(this);
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleMenu = this.handleMenu.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+
 
     }
 
@@ -160,12 +196,12 @@ export class Dashboard extends React.Component<IProps, IState> {
     };
 
     public handleMenu(event: any): void {
-        this.setState({ anchorEl: event.currentTarget, auth: this.state.auth });
+        this.setState({ anchorEl: event.currentTarget, auth: this.state.auth, authenticated: this.state.authenticated });
     };
 
     public handleChange(event: any): void {
         const safeSearchTypeValue: boolean = event.target.checked;
-        this.setState({ auth: safeSearchTypeValue, anchorEl: null });
+        this.setState({ auth: safeSearchTypeValue, authenticated: safeSearchTypeValue, anchorEl: null });
     };
 
 
@@ -180,110 +216,122 @@ export class Dashboard extends React.Component<IProps, IState> {
     };
 
 
+    public renderSquare(url: any, title: any, category: any, date: any) {
+        // return <PdfDisplayFactory url="https://msaphase2blob.blob.core.windows.net/images/f4d4690e-d249-424f-b765-54bccb03e1e1.pdf" title="Sometitle" category="Some Catergory"  date="10/10/10" />;
+
+        return <PdfDisplayFactory url="https://github.com/tlop491/partIV-106/blob/master/Minutes/Meeting_Minutes_160818.pdfs" title={title} category={category} date={date} />;
+
+    }
+
+
     public render() {
         const { classes } = this.props;
         const open = Boolean(this.state.anchorEl);
 
+        // const listItems = this.props.docs.map((id) =>
+        //     // tslint:disable-next-line:jsx-key
+        //     <PdfDisplayFactory url={this.props.docs[id].url} title={this.props.docs[id].title} category={this.props.docs[id].category}  date={this.props.docs[id].}/>
+        //     );
 
         return (
             <div className={classes.root}>
                 <CssBaseline />
-                <AppBar
-                    position="absolute"
-                    className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                >
+                <AppBar position="absolute" className={classNames(classes.appBar, this.state.open && classes.appBarShift)} >
                     <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(
-                                classes.menuButton,
-                                this.state.open && classes.menuButtonHidden,
-                            )}
-                        >
+                        <IconButton color="inherit" aria-label="Open drawer" onClick={this.handleDrawerOpen} className={classNames(classes.menuButton, this.state.open && classes.menuButtonHidden)}>
                             <MenuIcon />
                         </IconButton>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            color="inherit"
-                            noWrap={true}
-                            className={classes.title}
-                        >
-                            Dashboard
-                </Typography>
+                        < img className={classNames(classes.logoimg)} src="./Logo_inverse.png" />
+                        <Typography component="h1" variant="h6" color="inherit" noWrap={true} className={classes.title} >
+                        
+                        U-Track: University Management Software
+                         </Typography>
+                        <FBButton />
 
-                        {/*  Icon Login  */}
-                        {/* <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton> */}
-            {this.state.auth && (
-                        <div>
-                        <IconButton
-                            aria-owns={open ? 'menu-appbar' : undefined}
-                            aria-haspopup="true"
-                            onClick={this.handleMenu}
-                            color="inherit"
-
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={this.state.anchorEl}
-                            anchorOrigin={{
-                                horizontal: 'right',
-                                vertical: 'top',
-
-                            }}
-                            transformOrigin={{
-                                horizontal: 'right',
-                                vertical: 'top',
-
-                            }}
-                            open={open}
-                            onClose={this.handleClose}
-                        >
-                            <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
-                        </Menu>
-                        </div>
+                        {this.state.auth && (
+                            <div>
+                                <IconButton aria-owns={open ? 'menu-appbar' : undefined} aria-haspopup="true" onClick={this.handleMenu} color="inherit">
+                                    <AccountCircle />
+                                </IconButton>
+                                <Menu id="menu-appbar" anchorEl={this.state.anchorEl} anchorOrigin={{ horizontal: 'right', vertical: 'top', }}
+                                    transformOrigin={{ horizontal: 'right', vertical: 'top', }}
+                                    open={open}
+                                    onClose={this.handleClose}>
+                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                    <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
+                                </Menu>
+                            </div>
                         )}
-                            
+
                     </Toolbar>
                 </AppBar>
-                
-                <Drawer
-                    variant="permanent"
-                    classes={{
-                        paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-                    }}
-                    open={this.state.open}
-                >
+
+                <Drawer variant="permanent" classes={{
+                    paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
+                }} open={this.state.open} >
                     <div className={classes.toolbarIcon}>
                         <IconButton onClick={this.handleDrawerClose}>
                             <ChevronLeftIcon />
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>{mainListItems}</List>
+
+                    {this.props.items.map(
+                        (item, index) => {
+                            return <div key={index} className="docHolder">
+                                {/* <PdfDisplayFactory url={item.url} title={item.title} category={item.category} date={item.date} /> */}
+                                <ListSection studentSubjectONE={item.courseName} studentSubjectTWO={this.props.studentSubjectTWO} studentSubjectTHREE={this.props.studentSubjectTHREE} studentSubjectFOUR={this.props.studentSubjectFOUR} docCatergories={this.props.docCatergories} />
+                            </div>
+
+
+                        })}
+
+
+
                     <Divider />
                     <List>{secondaryListItems}</List>
+                    {/* <FBButton /> */}
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
-                    <Typography variant="h4" gutterBottom={true} component="h2">
-                        Orders
-          </Typography>
+
+
                     <Typography component="div" className={classes.chartContainer}>
                         {/* <SimpleLineChart /> */}
                     </Typography>
-                    <Typography variant="h4" gutterBottom={true} component="h2">
-                        Products
-          </Typography>
+
+                    
+
+
+                    {this.props.items.map(
+                        (item, index) => {
+                            return <div key={index} className="docHolder">
+                                <PdfDisplayFactory url={item.url} title={item.title} category={item.category} date={item.date} />
+                            </div>
+
+
+                        })}
+
+
+
+                        <div className="g_chat">
+                        {/* <ChatBot
+                        steps={[
+                            {
+                                id: 'hello-world',
+                                message: 'Hello World!',
+                                end: true,
+                            },
+                        ]}
+                    /> */}
+                    </div>
+
+
+
+
+
+
+
                     <div className={classes.tableContainer}>
                         {/* <SimpleTable /> */}
                     </div>
