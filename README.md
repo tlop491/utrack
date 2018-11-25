@@ -2,11 +2,17 @@
 UTrack is university documentation management system. 
 
 ## Getting Started
+A live version of this can be found at: 
+To run this application on your own computer:
 
-%TODO% 
+Clone repository and in top-folder run: 
 
 ```
-todo 
+npm i 
+```
+then: 
+```
+npm run start
 ```
 
 ### Prerequisites
