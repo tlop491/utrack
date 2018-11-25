@@ -8,38 +8,38 @@ import '../App.css';
 
 interface IDispState {
 
-    numPages: any,
+    // numPages: any,
     pageNumber: any,
 
 
 }
 
-export default class PdfDisplayFactor extends React.Component<{ url: string, title: string, category: string, date: string, }, IDispState> {
+export default class PdfDisplayFactor extends React.Component<{ url: string, title: string, category: string, date: string, id: string }, IDispState> {
 
     constructor(props: any) {
         super(props);
 
         this.state = {
-            numPages: null,
+            // numPages: null,
             pageNumber: 1,
 
         };
 
-        this.onDocumentLoad = this.onDocumentLoad.bind(this);
+        // this.onDocumentLoad = this.onDocumentLoad.bind(this);
 
 
 
     }
 
 
-    public onDocumentLoad({ numPages }: any) {
-        this.setState({ numPages });
-    };
+    // public onDocumentLoad({ numPages }: any) {
+    //     this.setState({ numPages });
+    // };
 
 
 
     public render() {
-        const { pageNumber, numPages } = this.state;
+        const { pageNumber, } = this.state;
         const extension = this.props.url;
         const exe = extension.split('.').pop();
 
@@ -53,11 +53,12 @@ export default class PdfDisplayFactor extends React.Component<{ url: string, tit
                     <Document
                           file={this.props.url}
                         // file="https://msaphase2blob.blob.core.windows.net/images/f4d4690e-d249-424f-b765-54bccb03e1e1.pdf"
-                        onLoadSuccess={this.onDocumentLoad}
+                        // onLoadSuccess={this.onDocumentLoad}
                     >
                         <Page pageNumber={pageNumber} />
                     </Document>
-                    <p>Page {pageNumber} of {numPages}</p>
+                    {/* <p>Page {pageNumber} of {numPages}</p> */}
+                    <h5>{this.props.id}</h5>
                 </div>
             )
         }
@@ -66,6 +67,8 @@ export default class PdfDisplayFactor extends React.Component<{ url: string, tit
                 <h3>{this.props.title}</h3>
                 <h4>{this.props.category}</h4>
                 <h5>{this.props.date}</h5>
+                <h5>{this.props.id}</h5>
+
                 <img src={this.props.url} />
             </div>
         }

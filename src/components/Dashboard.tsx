@@ -31,8 +31,13 @@ import classNames from 'classnames';
 import * as React from 'react';
 // import ChatBot from 'react-simple-chatbot';
 
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Modal from 'react-responsive-modal';
 import FBButton from './FBButton';
 import PdfDisplayFactory from './PdfDisplayFactory';
+
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
@@ -80,6 +85,9 @@ const styles = createStyles({
         height: '100vh',
         overflow: 'auto',
     },
+    button: {
+        margin: theme.spacing.unit,
+      },
     chartContainer: {
         marginLeft: -22,
     },
@@ -142,6 +150,16 @@ const styles = createStyles({
     h5: {
         marginBottom: theme.spacing.unit * 2,
     },
+    fab: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 6,
+        right: theme.spacing.unit * 6,
+    },
+    fabUpdate: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 14,
+        right: theme.spacing.unit * 6,
+    },
 });
 
 interface IState {
@@ -149,10 +167,14 @@ interface IState {
     anchorEl: null,
     authenticated: boolean,
     open: boolean,
+    openM: boolean,
+    openD: boolean, 
+    uploadFileList: any,
 }
 
 interface IProps extends WithStyles<typeof styles> {
     studentSubjectONE: string,
+
     studentSubjectTWO: string,
     studentSubjectTHREE: string,
     studentSubjectFOUR: string,
@@ -173,16 +195,21 @@ export class Dashboard extends React.Component<IProps, IState> {
             anchorEl: null,
             auth: true,
             authenticated: false,
+            openM: false,
+            uploadFileList: null,
+            openD: false,
         };
 
         // this.renderDocs = this.renderDocs.bind(this);
-        this.renderSquare = this.renderSquare.bind(this);
+        // this.renderSquare = this.renderSquare.bind(this);
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleMenu = this.handleMenu.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleLogout = this.handleLogout.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this)
+        this.uploadMeme = this.uploadMeme.bind(this)
 
 
     }
@@ -197,36 +224,36 @@ export class Dashboard extends React.Component<IProps, IState> {
 
     public handleMenu(event: any): void {
         this.setState({ anchorEl: event.currentTarget, auth: this.state.auth, authenticated: this.state.authenticated });
-    };
-
+    }
     public handleChange(event: any): void {
         const safeSearchTypeValue: boolean = event.target.checked;
         this.setState({ auth: safeSearchTypeValue, authenticated: safeSearchTypeValue, anchorEl: null });
-    };
-
+    }
 
 
     public handleClose(event: any) {
         this.setState({ anchorEl: null });
-    };
-
+    }
     public handleLogout(event: any) {
         const safeSearchTypeValue: boolean = event.target.checked;
         this.setState({ auth: safeSearchTypeValue, anchorEl: null });
-    };
-
-
-    public renderSquare(url: any, title: any, category: any, date: any) {
-        // return <PdfDisplayFactory url="https://msaphase2blob.blob.core.windows.net/images/f4d4690e-d249-424f-b765-54bccb03e1e1.pdf" title="Sometitle" category="Some Catergory"  date="10/10/10" />;
-
-        return <PdfDisplayFactory url="https://github.com/tlop491/partIV-106/blob/master/Minutes/Meeting_Minutes_160818.pdfs" title={title} category={category} date={date} />;
-
     }
+
+    // public renderSquare(url: any, title: any, category: any, date: any) {
+    //     // return <PdfDisplayFactory url="https://msaphase2blob.blob.core.windows.net/images/f4d4690e-d249-424f-b765-54bccb03e1e1.pdf" title="Sometitle" category="Some Catergory"  date="10/10/10" />;
+
+    //     return <PdfDisplayFactory url="https://github.com/tlop491/partIV-106/blob/master/Minutes/Meeting_Minutes_160818.pdfs" title={title} category={category} date={date} id= />;
+
+    // }
+
+
 
 
     public render() {
         const { classes } = this.props;
         const open = Boolean(this.state.anchorEl);
+        const { openM, openD } = this.state;
+
 
         // const listItems = this.props.docs.map((id) =>
         //     // tslint:disable-next-line:jsx-key
@@ -339,7 +366,14 @@ export class Dashboard extends React.Component<IProps, IState> {
                     {this.props.items.map(
                         (item, index) => {
                             return <div key={index} className="docHolder">
-                                <PdfDisplayFactory url={item.url} title={item.title} category={item.category} date={item.date} />
+                                <PdfDisplayFactory url={item.url} title={item.title} category={item.category} date={item.date} id={item.id} />
+                                {/* <Button variant="outlined" className={classes.button} onClick={this.onDelete}>
+                                    Delete
+                                </Button>
+                                <Button variant="outlined" className={classes.button}>
+                                    Update
+                                </Button> */}
+                                {/* This dot id: {item.id} */}
                             </div>
 
 
@@ -347,12 +381,63 @@ export class Dashboard extends React.Component<IProps, IState> {
 
 
 
-  
 
 
+                    <Button variant="fab" color="primary" aria-label="Add" className={classes.fabUpdate} onClick={this.onUpdateOpenModal}>
+                        <DeleteIcon />
+                    </Button>
 
 
+                    <Button variant="fab" color="primary" aria-label="Add" className={classes.fab} onClick={this.onOpenModal}>
+                        <AddIcon />
+                    </Button>
 
+                    <Modal open={openM} onClose={this.onCloseModal}>
+                        <form>
+                            <div className="form-group">
+                                <label>UserID</label>
+                                <input type="text" className="form-control" id="meme-userid-input" placeholder="Enter Title" />
+                                <small className="form-text text-muted">You can edit any  later</small>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Coursename</label>
+                                <input type="text" className="form-control" id="meme-coursename-input" placeholder="Enter Tag" />
+                                <small className="form-text text-muted">Couse Name</small>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Title</label>
+                                <input type="text" className="form-control" id="meme-title-input" placeholder="Title Name" />
+                                <small className="form-text text-muted">Title</small>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Tags</label>
+                                <input type="text" className="form-control" id="meme-tags-input" placeholder="Enter Tag" />
+                                <small className="form-text text-muted">Tag is used for search</small>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Image</label>
+                                <input type="file" onChange={this.handleFileUpload} className="form-control-file" id="meme-image-input" />
+                            </div>
+
+                            <button type="button" className="btn" onClick={this.uploadMeme}>Upload</button>
+                        </form>
+                    </Modal>
+
+                    <Modal open={openD} onClose={this.onUpdateCloseModal}>
+                        <form>
+                            <div className="form-group">
+                                <label>UserID</label>
+                                <input type="text" className="form-control" id="meme-userid-input" placeholder="Enter Title" />
+                                <small className="form-text text-muted">You can edit any later</small>
+                            </div>
+
+                            <button type="button" className="btn" onClick={this.onDelete}>Upload</button>
+                        </form>
+                    </Modal>
 
 
                     <div className={classes.tableContainer}>
@@ -361,6 +446,114 @@ export class Dashboard extends React.Component<IProps, IState> {
                 </main>
             </div>
         );
+    }
+
+
+    // Modal open
+    private onOpenModal = () => {
+        this.setState({ openM: true });
+    };
+
+    // Modal close
+    private onCloseModal = () => {
+        this.setState({ openM: false });
+    };
+
+        // Modal open
+        private onUpdateOpenModal = () => {
+            this.setState({ openD: true });
+        };
+    
+        // Modal close
+        private onUpdateCloseModal = () => {
+            this.setState({ openD: false });
+        };
+
+
+    private onDelete()  {
+        // const titleInput = document.getElementById("meme-title-input") as HTMLInputElement
+        // const tagInput = document.getElementById("meme-tags-input") as HTMLInputElement
+        // const coursename = document.getElementById("meme-coursename-input") as HTMLInputElement
+        const userid = document.getElementById("meme-userid-input") as HTMLInputElement
+
+
+        // const imageFile = this.state.uploadFileList[0]
+
+        if ( userid === null) {
+            return;
+        }
+
+        const id = userid.value
+        const url = "https://utrackapii.azurewebsites.net/api/DocumentItem/" + id
+
+
+
+
+
+        fetch(url, {
+            headers: { 'cache-control': 'no-cache', },
+            method: 'DELETE'
+        })
+            .then((response: any) => {
+                if (!response.ok) {
+                    // Error State
+                    alert(response.statusText)
+                } else {
+                    location.reload()
+                }
+            })
+    }
+
+
+    // Sets file list
+    private handleFileUpload(fileList: any) {
+        this.setState({
+            uploadFileList: fileList.target.files
+        })
+    }
+
+    // POST meme
+    private uploadMeme() {
+        const titleInput = document.getElementById("meme-title-input") as HTMLInputElement
+        const tagInput = document.getElementById("meme-tags-input") as HTMLInputElement
+        const coursename = document.getElementById("meme-coursename-input") as HTMLInputElement
+        const userid = document.getElementById("meme-userid-input") as HTMLInputElement
+
+
+        const imageFile = this.state.uploadFileList[0]
+
+        if (titleInput === null || tagInput === null || imageFile === null || coursename === null || userid === null) {
+            return;
+        }
+
+        const title = titleInput.value
+        const tag = tagInput.value
+        const course = coursename.value
+        const id = userid.value
+        const url = "https://utrackapii.azurewebsites.net/api/DocumentItem/upload"
+
+        const formData = new FormData()
+        formData.append("UserId", id)
+        formData.append("CourseName", course)
+        formData.append("Title", title)
+        formData.append("Tags", tag)
+        formData.append("image", imageFile)
+
+
+
+        fetch(url, {
+            body: formData,
+            headers: { 'cache-control': 'no-cache', },
+            method: 'POST'
+        })
+            .then((response: any) => {
+                if (!response.ok) {
+                    // Error State
+                    alert(response.statusText)
+                } else {
+                    location.reload()
+                }
+            })
     }
 }
 
