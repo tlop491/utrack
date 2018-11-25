@@ -34,7 +34,7 @@ export default class App extends React.Component<{}, IDispState> {
   constructor(props: any) {
     super(props)
     this.state = {
-      currentDoc: { "id": 0, "title": "Is Mayonnaise an Instrument?", "url": "https://example.com/url-to-meme-img.jpg", "tags": "Compsys303", "uploaded": "11/10/2018 10:09:52 PM", "userId": "Tim", "courseName": "Compsys 303", "typeDoc": "Notes", "width": "680", "height": "680" },
+      currentDoc: { "id": 0, "title": "Is Mayonnaise an Instrument?", "url": "https://example.com/url-to-doc-img.jpg", "tags": "Compsys303", "uploaded": "11/10/2018 10:09:52 PM", "userId": "Tim", "courseName": "Compsys 303", "typeDoc": "Notes", "width": "680", "height": "680" },
       docs: [],
       open: false,
       uploadFileList: null,
@@ -59,7 +59,7 @@ export default class App extends React.Component<{}, IDispState> {
     this.authenticate = this.authenticate.bind(this)
     this.splashDisable = this.splashDisable.bind(this)
     this.handleFileUpload = this.handleFileUpload.bind(this)
-    this.uploadMeme = this.uploadMeme.bind(this)
+    this.uploadDoc = this.uploadDoc.bind(this)
   }
 
   public render() {
@@ -107,46 +107,7 @@ export default class App extends React.Component<{}, IDispState> {
               items={this.state.items}
             />
 
-            {/* // <div className="btn btn-primary btn-action btn-add" onClick={this.onOpenModal}>Add Document</div>
-            // <Button variant="fab" color="primary" aria-label="Add" className="fab">
-            //   <AddIcon />
-            // </Button> */}
 
-            {/* <Modal open={open} onClose={this.onCloseModal}>
-              <form>
-                <div className="form-group">
-                  <label>Title</label>
-                  <input type="text" className="form-control" id="meme-title-input" placeholder="Enter Title" />
-                  <small className="form-text text-muted">You can edit any  later</small>
-                </div>
-                <div className="form-group">
-                  <label>Coursename</label>
-                  <input type="text" className="form-control" id="meme-coursename-input" placeholder="Enter Tag" />
-                  <small className="form-text text-muted">Tag is used for search</small>
-                </div>
-                <div className="form-group">
-                  <label>UserID</label>
-                  <input type="text" className="form-control" id="meme-userid-input" placeholder="Enter Tag" />
-                  <small className="form-text text-muted">Tag is used for search</small>
-                </div>
-                <div className="form-group">
-                  <label>Image</label>
-                  <input type="file" onChange={this.handleFileUpload} className="form-control-file" id="meme-image-input" />
-                </div>
-
-                <button type="button" className="btn" onClick={this.uploadMeme}>Upload</button>
-              </form>
-            </Modal> */}
-
-            {/* {this.state.items.map(
-            (item, index) => {
-              return <div key={index} className="docHolder">  
-                <PdfDisplayFactory url={item.url} title={item.title} category={item.category}  date={item.date} />
-              </div> */}
-            {/* <h1 key={index}>{item.title}</h1>;
-
-
-          // })} */}
 
           </div>
           : ""}
@@ -169,15 +130,6 @@ export default class App extends React.Component<{}, IDispState> {
     })
   }
 
-  // // Modal open
-  // private onOpenModal = () => {
-  //   this.setState({ open: true });
-  // };
-
-  // // Modal close
-  // private onCloseModal = () => {
-  //   this.setState({ open: false });
-  // };
 
 
 
@@ -312,12 +264,12 @@ export default class App extends React.Component<{}, IDispState> {
     })
   }
 
-  // POST meme
-  private uploadMeme() {
-    const titleInput = document.getElementById("meme-title-input") as HTMLInputElement
-    const tagInput = document.getElementById("meme-tag-input") as HTMLInputElement
-    const coursename = document.getElementById("meme-coursename-input") as HTMLInputElement
-    const userid = document.getElementById("meme-userid-input") as HTMLInputElement
+  // POST doc
+  private uploadDoc() {
+    const titleInput = document.getElementById("doc-title-input") as HTMLInputElement
+    const tagInput = document.getElementById("doc-tag-input") as HTMLInputElement
+    const coursename = document.getElementById("doc-coursename-input") as HTMLInputElement
+    const userid = document.getElementById("doc-userid-input") as HTMLInputElement
 
 
     const imageFile = this.state.uploadFileList[0]

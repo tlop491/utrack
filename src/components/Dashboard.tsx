@@ -29,16 +29,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import classNames from 'classnames';
 import * as React from 'react';
-// import ChatBot from 'react-simple-chatbot';
+import ChatBot from 'react-simple-chatbot';
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import ChatIcon from '@material-ui/icons/Chat';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Modal from 'react-responsive-modal';
 import FBButton from './FBButton';
 import PdfDisplayFactory from './PdfDisplayFactory';
-
-import DeleteIcon from '@material-ui/icons/Delete';
-
 
 
 
@@ -87,7 +86,7 @@ const styles = createStyles({
     },
     button: {
         margin: theme.spacing.unit,
-      },
+    },
     chartContainer: {
         marginLeft: -22,
     },
@@ -160,6 +159,11 @@ const styles = createStyles({
         bottom: theme.spacing.unit * 14,
         right: theme.spacing.unit * 6,
     },
+    fabChat: {
+        position: 'absolute',
+        bottom: theme.spacing.unit * 22,
+        right: theme.spacing.unit * 6,
+    }
 });
 
 interface IState {
@@ -168,7 +172,8 @@ interface IState {
     authenticated: boolean,
     open: boolean,
     openM: boolean,
-    openD: boolean, 
+    openD: boolean,
+    openChat: boolean,
     uploadFileList: any,
 }
 
@@ -198,6 +203,7 @@ export class Dashboard extends React.Component<IProps, IState> {
             openM: false,
             uploadFileList: null,
             openD: false,
+            openChat: false,
         };
 
         // this.renderDocs = this.renderDocs.bind(this);
@@ -252,7 +258,7 @@ export class Dashboard extends React.Component<IProps, IState> {
     public render() {
         const { classes } = this.props;
         const open = Boolean(this.state.anchorEl);
-        const { openM, openD } = this.state;
+        const { openM, openD, openChat } = this.state;
 
 
         // const listItems = this.props.docs.map((id) =>
@@ -318,39 +324,7 @@ export class Dashboard extends React.Component<IProps, IState> {
                     <Divider />
                     <List>{secondaryListItems}</List>
                     {/* <FBButton /> */}
-                    <div className="g_chat">
-                        {/* <ChatBot
-                        steps={[
-                            {
-                                id: 'hello-world',
-                                message: 'Hello World!',
-                                end: true,
-                            },
-                        ]}
-                    /> */}
 
-                        {/* <ChatBot
-                            steps={[
-                                {
-                                    id: '1',
-                                    message: 'What is your name?',
-                                    trigger: '2',
-                                },
-                                {
-                                    id: '2',
-                                    user: true,
-                                    trigger: '3',
-                                },
-                                {
-                                    id: '3',
-                                    message: 'Hi, nice to meet you!',
-                                    end: true,
-                                },
-                            ]
-                        }
-
-                        /> */}
-                    </div>
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
@@ -382,6 +356,9 @@ export class Dashboard extends React.Component<IProps, IState> {
 
 
 
+                    <Button variant="fab" color="primary" aria-label="Add" className={classes.fabChat} onClick={this.onChatOpenModal}>
+                        <ChatIcon />
+                    </Button>
 
                     <Button variant="fab" color="primary" aria-label="Add" className={classes.fabUpdate} onClick={this.onUpdateOpenModal}>
                         <DeleteIcon />
@@ -439,6 +416,19 @@ export class Dashboard extends React.Component<IProps, IState> {
                         </form>
                     </Modal>
 
+                    <Modal open={openChat} onClose={this.onChatCloseModal}>
+                        <ChatBot
+                            steps={[
+                                {
+                                    id: 'hello-world',
+                                    message: 'Hello World! I am a chatbot but currently I am at mechanics. MSPs please help, give me job! Send Location! SEND LOCATION!!',
+                                    end: true,
+                                },
+                            ]}
+                        />
+                    </Modal>
+
+
 
                     <div className={classes.tableContainer}>
                         {/* <SimpleTable /> */}
@@ -459,18 +449,28 @@ export class Dashboard extends React.Component<IProps, IState> {
         this.setState({ openM: false });
     };
 
-        // Modal open
-        private onUpdateOpenModal = () => {
-            this.setState({ openD: true });
-        };
-    
-        // Modal close
-        private onUpdateCloseModal = () => {
-            this.setState({ openD: false });
-        };
+    // Modal open
+    private onUpdateOpenModal = () => {
+        this.setState({ openD: true });
+    };
+
+    // Modal close
+    private onUpdateCloseModal = () => {
+        this.setState({ openD: false });
+    };
+
+    // Modal open
+    private onChatOpenModal = () => {
+        this.setState({ openChat: true });
+    };
+
+    // Modal close
+    private onChatCloseModal = () => {
+        this.setState({ openChat: false });
+    };
 
 
-    private onDelete()  {
+    private onDelete() {
         // const titleInput = document.getElementById("meme-title-input") as HTMLInputElement
         // const tagInput = document.getElementById("meme-tags-input") as HTMLInputElement
         // const coursename = document.getElementById("meme-coursename-input") as HTMLInputElement
@@ -479,7 +479,7 @@ export class Dashboard extends React.Component<IProps, IState> {
 
         // const imageFile = this.state.uploadFileList[0]
 
-        if ( userid === null) {
+        if (userid === null) {
             return;
         }
 
